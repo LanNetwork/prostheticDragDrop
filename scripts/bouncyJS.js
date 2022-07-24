@@ -72,6 +72,7 @@ function create() {
         // Drag gameObject from whever you started drag
         gameObject.x = dragX;
         gameObject.y = dragY;
+        console.log("testing for git!");
 
         // Snap gameObject center to pointer
         // gameObject.x = pointer.x;
