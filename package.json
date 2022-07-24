@@ -1,0 +1,15 @@
+{
+  "name": "prostheticdragdrop",
+  "version": "1.0.0",
+  "description": "Drag and drop game for Bouncy",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "author": "Ian McGeoy",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "phaser": "^3.55.2"
+  }
+}
