@@ -1,3 +1,5 @@
+// TODO: any position that is hard coded needs to be changed. That's a problem, and makes this not very compatible.
+// TODO: Make this game complient with the standards Heidi linked to in her email.
 let config = {
     type: Phaser.AUTO,
     parent: "game-area",
@@ -16,6 +18,7 @@ let game = new Phaser.Game(config);
 Phaser.Display.Color = 255;
 
 function preload() {
+    // Load all image pngs as their alias
     this.load.image('leg_ballet', 'assets/bouncyLeg_ballet.png');
     this.load.image('leg_flipper', 'assets/bouncyLeg_flipper.png');
     this.load.image('leg_hook', 'assets/bouncyLeg_hook.png');
@@ -33,6 +36,7 @@ function preload() {
     this.load.audio("pop", "assets/pop.mp3");
 
 }
+    // The object that is currently attached to bouncy's leg.
     let snappedObject;
 function create() {
     let bouncy = this.add.image(400, 230, "bouncy_legless");
@@ -54,15 +58,25 @@ function create() {
     let flipper = this.add.sprite(400, 400, "leg_flipper");
     let ballet = this.add.sprite(400, 400, "leg_ballet");
 
+    //TODO: Refactor all of this. Why is it chaining some things, looping through some things,
+    //  and individually setting some things. Terrible.
+    
+    //TODO: Do scaling for webpage. Doesn't work for webpages or resizing.
+    // Probably have to use some kind of calculation for placing items. Bounding box, divide into 4?
+    // Setting the home position and corrosponding background image for each item
     shoe.homePos = {"x": 186, "y": 578};
     shoe.bgImage = "grass";
+
     hook.homePos = {"x": 315, "y": 582};
     hook.bgImage = "ship";
+
     ballet.homePos = {"x": 446, "y": 582};
     ballet.bgImage = "stage";
+
     flipper.homePos = {"x": 643, "y": 581};
     flipper.bgImage = "beach";
 
+    // Creating the actual game objects for each draggable item
     shoe.setPosition(shoe.homePos.x, shoe.homePos.y).setInteractive().setScale(0.6);
     hook.setPosition(hook.homePos.x, hook.homePos.y).setInteractive().setScale(0.6);
     ballet.setPosition(ballet.homePos.x, ballet.homePos.y).setInteractive().setScale(0.6);
@@ -76,6 +90,10 @@ function create() {
 
     // Anchor spot for Bouncy's leg
     let legAnchor = {"x": 352.0028409957886, "y": 343.9204559326172};
+
+    //TODO: Possibly make it so that dragging an appendage to anywhere on the top of the screen snaps.
+    // JB and I talked about it, and it seems like the action of dragging up at all means you want to attach
+
     // Threshhold for snapping to legAnchor
     let anchorThreshhold = 80;
 
@@ -130,6 +148,7 @@ function create() {
 
     });
 
+// TODO: This function DOES NOT WORK. It crashed webpage. Fix!
 async function printCanvas() {
     let toHideObjects = [frame, shoe, hook, ballet, flipper, printButton];
     for (let i = 0; i < toHideObjects.length; i++) {
@@ -165,6 +184,7 @@ async function printCanvas() {
 }
 }
 
+// Remove if unused. Why is it unused?? What does it do?
 function update() {
 
 }
@@ -173,14 +193,10 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+// Function to send gameObject back to it's home position.
 function sendHome(gameObject) {
     gameObject.x = gameObject.homePos.x;
     gameObject.y = gameObject.homePos.y;
 
 }
 
-function printHello() {
-    console.log("hello from button!");
-}
-
-// onmousemove = function(e){console.log("mouse location:", e.clientX, e.clientY)}
